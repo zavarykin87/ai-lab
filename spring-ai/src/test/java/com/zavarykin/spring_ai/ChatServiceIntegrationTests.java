@@ -23,4 +23,10 @@ public class ChatServiceIntegrationTests {
         String answer = chatService.chat("hello");
         assertThat(answer).isNotBlank();
     }
+
+    @Test 
+    void testStream() {
+        assertThat(chatService.stream("hello").blockFirst()).isNotBlank();
+    }
+
 }
