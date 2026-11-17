@@ -20,13 +20,13 @@ public class ChatServiceIntegrationTests {
 
     @Test
     void testChat() {
-        String answer = chatService.chat("hello");
+        String answer = chatService.chat("chat-01", "hello");
         assertThat(answer).isNotBlank();
     }
 
     @Test 
     void testStream() {
-        assertThat(chatService.stream("hello").blockFirst()).isNotBlank();
+        assertThat(chatService.stream("chat-01", "hello").blockFirst()).isNotBlank();
     }
 
 }

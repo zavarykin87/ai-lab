@@ -21,13 +21,13 @@ public class ChatController {
 
     @PostMapping
     public ChatResponse chat(@Valid @RequestBody ChatRequest request) {
-        String answer = chatService.chat(request.message());
+        String answer = chatService.chat(request.conversationId(), request.message());
         return new ChatResponse(answer);
     }
 
     // потоковый ответ через Server-Sent Events (SSE)
     @PostMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> stream(@Valid @RequestBody ChatRequest request) {
-        return chatService.stream(request.message());
+        return chatService.stream(request.conversationId(), request.message());
     }
 }
