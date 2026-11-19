@@ -6,6 +6,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.stereotype.Service;
 
 import com.zavarykin.spring_ai.tools.DeveloperTools;
+import com.zavarykin.spring_ai.tools.TaskTools;
 
 import reactor.core.publisher.Flux;
 
@@ -17,10 +18,11 @@ public class ChatService {
     public ChatService(
         ChatClient.Builder builder,
         ChatMemory chatMemory,
-        DeveloperTools developerTools
+        DeveloperTools developerTools,
+        TaskTools taskTools
     ) {
         this.chatClient = builder.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
-        .defaultTools(developerTools)
+        .defaultTools(developerTools, taskTools)
         .build();
     }
 
