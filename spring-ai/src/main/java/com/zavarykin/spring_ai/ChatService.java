@@ -5,6 +5,8 @@ import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.stereotype.Service;
 
+import com.zavarykin.spring_ai.tools.DeveloperTools;
+
 import reactor.core.publisher.Flux;
 
 @Service
@@ -12,8 +14,14 @@ public class ChatService {
 
     private final ChatClient chatClient;
 
-    public ChatService(ChatClient.Builder builder, ChatMemory chatMemory) {
-        this.chatClient = builder.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build()).build();
+    public ChatService(
+        ChatClient.Builder builder,
+        ChatMemory chatMemory,
+        DeveloperTools developerTools
+    ) {
+        this.chatClient = builder.defaultAdvisors(MessageChatMemoryAdvisor.builder(chatMemory).build())
+        .defaultTools(developerTools)
+        .build();
     }
 
     public String chat(String conversationId, String message) {
